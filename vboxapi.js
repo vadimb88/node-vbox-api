@@ -95,14 +95,14 @@ const parseListOutputShort = function(output) {
   const listOfMachines = {};  
   if(output.stdout) {
     output.stdout.split('\n').forEach((machineString) => {
-    if(!!machineString) {
-      const machinesUUID = machineString.replace(/.*?\{(.*?)\}.*/, "$1");
-      const machinesName = machineString.replace(/.*?\"(.*?)\".*/, "$1");
-      if(machinesUUID && machinesName) {
-        listOfMachines[machinesUUID] = machinesName;
-      }           
-    }       
-  });
+      if(!!machineString) {
+        const machinesUUID = machineString.replace(/.*?\{(.*?)\}.*/, "$1");
+        const machinesName = machineString.replace(/.*?\"(.*?)\".*/, "$1");
+        if(machinesUUID && machinesName) {
+          listOfMachines[machinesUUID] = machinesName;
+        }           
+      }       
+    });
   }
 
   return listOfMachines;
@@ -117,11 +117,11 @@ const parseMachineInfo = function(output, propertyesArray) {
 
   output.stdout.split('\n').forEach((propertyString) => { 
     const property = propertyString.split(/=(.+)/, 2);      
-  const propertyName = property[0].toLowerCase();
-  const propertyValue = property[1] ? property[1].replace(/^["']|["']$/g,'') : '';    
-  if(propertyName.length > 0 && (!propertyesArray || propertyesArray.indexOf(propertyName) != -1)) {
-    machineInfo[propertyName] = propertyValue;
-  }               
+    const propertyName = property[0].toLowerCase();
+    const propertyValue = property[1] ? property[1].replace(/^["']|["']$/g,'') : '';    
+    if(propertyName.length > 0 && (!propertyesArray || propertyesArray.indexOf(propertyName) != -1)) {
+      machineInfo[propertyName] = propertyValue;
+    }               
   });
 
   return machineInfo;
